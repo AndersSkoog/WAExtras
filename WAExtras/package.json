@@ -1,0 +1,16 @@
+{
+  "name": "waextras",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "watchify index.js -o dist/WAExtras.js",
+    "start": "go run server.go"
+  },
+  "author": "Anders Skoog",
+  "license": "ISC"
+}

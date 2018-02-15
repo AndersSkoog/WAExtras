@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="../index.js"></script>
+    </head>
+    <body>
+        <a href="./index.html">index</a>
+        <br/>
+        <br/>
+        <span>note</span>
+        <br/>
+        <input class="ctrl" id="Note" type="range" min="36" max="119" step="1"/>
+        <br/>
+        <span>modharm</span>
+        <br/>
+        <input class="ctrl" id="Modharm" type="range" min="0" max="1" step="0.01"/>
+        <br/>
+        <span>modlevel</span>
+        <br/>
+        <input class="ctrl" id="Modlevel" type="range" min="0" max="1" step="0.01"/>
+        <br/>
+        <br/>
+        <button id="playback">play</button>
+    </body>
+    <script>
+        console.log(window);
+        var ctx  = new AudioContext() || new webkitAudioContext();
+        var node = new FmGen(ctx);
+        var isPlaying = false;
+        $("#Note").on("input",function(){
+            node.setNote(Number($(this).val()));
+        });
+        $("#Modlevel").on("input",function(){
+            node.setModlevel(Number($(this).val()));
+        });
+        $("#Modharm").on("input",function(){
+            node.setModharm(Number($(this).val()));
+        });
+        $("#playback").on("click",function(){
+            if(isPlaying){
+                isPlaying = false;
+                $(this).text("stop");
+                node.outlet.disconnect();
+            }
+            else {
+                isPlaying = true;
+                node.outlet.connect(ctx.destination);
+                $(this).text("stop");
+            }
+        });
+    </script>
+</html>

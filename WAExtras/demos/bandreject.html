@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="../index.js"></script>
+    </head>
+    <body>
+        <a href="./index.html">index</a>
+        <br/>
+        <br/>
+        <span>Freq</span>
+        <br/>
+        <input class="ctrl" id="Freq" type="range" min="0" max="1" step="0.01"/>
+        <br/>
+        <span>Q</span>
+        <br/>
+        <input class="ctrl" id="Q" type="range" min="0" max="1" step="0.01"/>
+        <br/>
+        <br/>
+        <audio id="sample" src="./Transgroove.wav" loop controls></audio>
+    </body>
+    <script>
+        var ctx  = new AudioContext() || new webkitAudioContext();
+        var src  = ctx.createMediaElementSource(document.getElementById("sample"));
+        var brjct = new BandReject(ctx);
+        brjct.connect(src);
+        brjct.outlet.connect(ctx.destination);
+        $(".ctrl").on("input",function(){
+            brjct["set"+$(this).attr("id")](Number($(this).val()));
+        });
+    </script>
+</html>
