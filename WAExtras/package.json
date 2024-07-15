@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "watchify index.js -o dist/WAExtras.js",
-    "start": "go run server.go"
+    "start": "python -m http.server 9000"
   },
   "author": "Anders Skoog",
   "license": "ISC"
